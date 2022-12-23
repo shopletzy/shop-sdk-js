@@ -33,7 +33,7 @@ export class ShopletzyClient {
     fetch(url: string, init?: RequestInit): Promise<Response> {
         if (!url.startsWith("http")) {
             if (this.config.env == "testing") {
-                url = 'http://localhost:3978' + url
+                url = 'https://shop-api.testing.shopletzy.com' + url
             } else {
                 url = 'https://shop-api.shopletzy.com' + url
             }
