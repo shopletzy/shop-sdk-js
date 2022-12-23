@@ -1,14 +1,13 @@
 # shop-sdk-js
 
+
 [![npm version][npmimg]][npm]
 [![Downloads][downloadsimg]][downloads]
-[![Known Vulnerabilities][snyk-image]][snyk-url]
 
 Shop SDK provides nice javascript api to interact with Shopletzy Storefront APIs
 
-- [shop-sdk-js](#shop-sdk-js)
-  - [Getting started](#getting-started)
-    - [Installation](#installation)
+* [Getting started](#getting-started)
+  * [Installation](#installation)
 
 ## Getting started
 
@@ -18,3 +17,8 @@ This library is distributed on `npm`. In order to add it as a dependency, run th
 ``` sh
 $ npm i @shopletzy/shop-sdk
 ```
+
+[npmimg]: https://img.shields.io/npm/v/@shopletzy/shop-sdk.svg
+[npm]: https://www.npmjs.org/package/@shopletzy/shop-sdk
+[downloadsimg]: https://img.shields.io/npm/dm/@shopletzy/shop-sdk.svg
+[downloads]: https://www.npmjs.com/package/@shopletzy/shop-sdk
