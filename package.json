@@ -4,8 +4,14 @@
   "description": "Shop SDK for Shopletzy Storefront APIs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "@shopletzy:registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -16,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/shopletzy/shop-sdk-js/issues"
   },
-  "homepage": "https://github.com/shopletzy/shop-sdk-js#readme"
+  "homepage": "https://github.com/shopletzy/shop-sdk-js#readme",
+  "files": [
+    "dist/**/*"
+  ]
 }

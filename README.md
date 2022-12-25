@@ -1,5 +1,4 @@
-# shop-sdk-js
-
+# [Shopletzy](https://shopletzy.com) JavaScript Shop SDK
 
 [![npm version][npmimg]][npm]
 [![Downloads][downloadsimg]][downloads]
