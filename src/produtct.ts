@@ -19,7 +19,7 @@ export class ProductResource {
 
     async getProductBySku(sku: string, ouId: string) {
         const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/productskus/${sku}?ouId=${ouId}`)
-        return (await d.json()).products as Product
+        return (await d.json()) as Product
     }
 
     async search(q: string, ouId: string) {

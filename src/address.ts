@@ -9,6 +9,6 @@ export class AddressResource {
 
     async getAddresses() {
         const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/addresses`)
-        return (await d.json()).products as Address[]
+        return (await d.json()).addresses as Address[]
     }
 }
