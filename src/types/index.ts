@@ -17,6 +17,7 @@ export type SiteConfiguration = {
     paymentGateway?: PaymentGatewayCredentials;
     siteStatus: SiteStatus;
     webPushKey: string;
+    theme: string;
 }
 
 export type SiteStatusCode = "live" | "maintenance";
@@ -231,3 +232,18 @@ export type Cart = {
 }
 
 export type OrderStatus = "pending" | "awaitingPayment" | "awaitingConfirmation" | "awaitingFulfilment" | "shipped" | "completed" | "refunded" | "partiallyRefunded" | "cancelled" | "declined" | "returned";
+
+export type CustomerAddress = {
+    _id: string;
+    fullName: string;
+    houseName: string;
+    phoneNo: string;
+    landmark: string;
+    addressLine: string;
+    area: string;
+    city: string;
+    state: string;
+    country: string;
+    zipcode: string;
+    placeDetails: PlaceDetails;
+}

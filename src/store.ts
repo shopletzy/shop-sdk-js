@@ -13,6 +13,10 @@ export class StoreResource {
         return this.client.siteConfig
     }
 
+    getTheme() {
+        return this.client.siteConfig.theme || "elementary"
+    }
+
     async autocompleteLocation(input: string, sessionToken: string) {
         const d = await this.client.fetch(`/locations/v1/autocomplete?input=${input}&sessionToken=${sessionToken}`)
         return (await d.json()).suggestions as LocationSuggestion[]

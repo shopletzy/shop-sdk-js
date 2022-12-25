@@ -1,3 +1,4 @@
+import { AddressResource } from "./address";
 import { CartResource } from "./cart";
 import { ProductResource } from "./produtct";
 import { StoreResource } from "./store"
@@ -13,6 +14,7 @@ export class ShopletzyClient {
     store: StoreResource
     cart: CartResource
     product: ProductResource
+    address: AddressResource
 
     constructor(config: ClientConfig) {
         this.config = config
@@ -28,6 +30,7 @@ export class ShopletzyClient {
         this.store = new StoreResource(this)
         this.cart = new CartResource(this)
         this.product = new ProductResource(this)
+        this.address = new AddressResource(this)
     }
 
     fetch(url: string, init?: RequestInit): Promise<Response> {
