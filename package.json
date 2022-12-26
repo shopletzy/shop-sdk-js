@@ -1,6 +1,6 @@
 {
   "name": "@shopletzy/shop-sdk",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Shop SDK for Shopletzy Storefront APIs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

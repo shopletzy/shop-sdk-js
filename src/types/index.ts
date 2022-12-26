@@ -4,7 +4,6 @@ export type ClientConfig = {
     domain: string;
     storeName?: string;
     sessionId?: string;
-    fetch?: (input: RequestInfo, init?: RequestInit | undefined) => Promise<Response>;
 }
 
 export type SiteConfiguration = {
@@ -246,4 +245,37 @@ export type CustomerAddress = {
     country: string;
     zipcode: string;
     placeDetails: PlaceDetails;
+}
+
+export type AuthProvider = "google" | "facebook";
+
+export type LoginRequest = {
+    authProvider: AuthProvider;
+    token: string;
+    cartId?: string; // For Cart Migration
+    sessionId?: string;
+}
+
+export type LoginResponse = {
+    token: string;
+    email: string;
+    expiresIn: number;
+    fullName: string;
+    mobileNo: string;
+    cusId: string;
+    isNewCustomer: boolean;
+    cart: {
+        _id: string;
+        cartMigrated: boolean
+    }
+}
+
+export type Wishlist = {
+    _id: string;
+    name: string;
+    productIds: string[];
+    cusId: string;
+    sid: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

@@ -10,6 +10,7 @@ export class StoreResource {
     async loadSiteConfig() {
         const d = await this.client.fetch('/v1/siteConfiguration?domain=' + this.client.config.domain)
         this.client.siteConfig = await d.json() as SiteConfiguration
+        this.client.storeName = this.client.siteConfig.name
         return this.client.siteConfig
     }
 
@@ -28,12 +29,12 @@ export class StoreResource {
     }
 
     async newSession() {
-        const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/newSession`)
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/newSession`)
         return (await d.json()).sessionId
     }
 
     async getNearByOutlets(placeDetail: PlaceDetails) {
-        const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/nearByOutlets`, {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/nearByOutlets`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ export class StoreResource {
     }
 
     async getLandingPageListings(ouId: string) {
-        const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/categories?ouId=${ouId}`)
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/categories?ouId=${ouId}`)
         return (await d.json()).listings as PageListing[]
     }
 }

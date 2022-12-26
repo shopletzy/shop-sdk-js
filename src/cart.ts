@@ -8,12 +8,12 @@ export class CartResource {
     }
 
     async getCart() {
-        const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/carts`)
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/carts`)
         return await d.json() as Cart
     }
 
     async addToCart(cartId: string, cartUpdateReq: CartUpdateReq) {
-        const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/carts/${cartId}/addProduct`, {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/carts/${cartId}/addProduct`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export class CartResource {
     }
 
     async removeFromCart(cartId: string, cartUpdateReq: CartUpdateReq) {
-        const d = await this.client.fetch(`/${this.client.siteConfig.name}/v1/carts/${cartId}/removeProduct`, {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/carts/${cartId}/removeProduct`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

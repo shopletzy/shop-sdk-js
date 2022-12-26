@@ -1,4 +1,4 @@
-import { AddressResource } from "./address";
+import { CustomerResource } from "./customer";
 import { CartResource } from "./cart";
 import { ProductResource } from "./produtct";
 import { StoreResource } from "./store"
@@ -14,15 +14,10 @@ export class ShopletzyClient {
     store: StoreResource
     cart: CartResource
     product: ProductResource
-    address: AddressResource
+    customer: CustomerResource
 
     constructor(config: ClientConfig) {
         this.config = config
-
-        if (!this.config.fetch) {
-            this.config.fetch = fetch
-        }
-
         this.storeName = config.storeName
         this.authToken = config.authToken
         this.sessionId = config.sessionId
@@ -30,7 +25,7 @@ export class ShopletzyClient {
         this.store = new StoreResource(this)
         this.cart = new CartResource(this)
         this.product = new ProductResource(this)
-        this.address = new AddressResource(this)
+        this.customer = new CustomerResource(this)
     }
 
     fetch(url: string, init?: RequestInit): Promise<Response> {
@@ -54,7 +49,7 @@ export class ShopletzyClient {
             init.headers = { ...init.headers, "authorization": "Bearer " + this.authToken }
         }
 
-        return this.config.fetch!(url, init)
+        return fetch!(url, init)
     }
 }
 
@@ -62,7 +57,6 @@ export async function initializeSlzClient(config: ClientConfig): Promise<Shoplet
     const client = new ShopletzyClient(config);
     if (!client.storeName) {
         await client.store.loadSiteConfig()
-        client.storeName = client.siteConfig.name
     }
     if (!client.sessionId) {
         client.sessionId = await client.store.newSession()
