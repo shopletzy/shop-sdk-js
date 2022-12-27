@@ -9,7 +9,7 @@ export class CartResource {
 
     async getCart() {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/carts`)
-        return await d.json() as Cart
+        return (await d.json()).cart as Cart
     }
 
     async addToCart(cartId: string, cartUpdateReq: CartUpdateReq) {
@@ -20,7 +20,7 @@ export class CartResource {
             },
             body: JSON.stringify(cartUpdateReq)
         })
-        return await d.json() as Cart
+        return (await d.json()).cart as Cart
     }
 
     async removeFromCart(cartId: string, cartUpdateReq: CartUpdateReq) {
@@ -31,6 +31,6 @@ export class CartResource {
             },
             body: JSON.stringify(cartUpdateReq)
         })
-        return await d.json() as Cart
+        return (await d.json()).cart as Cart
     }
 }

@@ -15,7 +15,9 @@ export class CustomerResource {
             },
             body: JSON.stringify(loginReq)
         })
-        return await d.json() as LoginResponse
+        const loginResponse = await d.json() as LoginResponse
+        this.client.authToken = loginResponse.token
+        return loginResponse
     }
 
     async getWishlists() {
