@@ -20,6 +20,36 @@ export class CustomerResource {
         return loginResponse
     }
 
+
+    async sendMobileOTP(mobileNo: string, countryCode?: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/sendOTP`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "mobileNo": mobileNo,
+                "countryCode": countryCode
+            })
+        })
+        return (await d.json()).success
+    }
+
+    async verifyMobileOTP(otp: string, mobileNo: string, countryCode?: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/verifyOTP`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "mobileNo": mobileNo,
+                "otp": otp,
+                "countryCode": countryCode
+            })
+        })
+        return (await d.json()).success
+    }
+
     async getWishlists() {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/wishlists`)
         return (await d.json()).wishlists as Wishlist[]

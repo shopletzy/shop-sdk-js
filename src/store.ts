@@ -28,6 +28,11 @@ export class StoreResource {
         return await d.json() as PlaceDetails
     }
 
+    async reverseGeocode(lat: number, lng: number) {
+        const d = await this.client.fetch(`/locations/v1/reverseGeocode?lat=${lat}&lng=${lng}`)
+        return await d.json() as PlaceDetails
+    }
+
     async newSession() {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/newSession`)
         return (await d.json()).sessionId
