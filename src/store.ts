@@ -50,7 +50,7 @@ export class StoreResource {
     }
 
     async getLandingPageListings(ouId: string) {
-        const d = await this.client.fetch(`/${this.client.storeName}/v1/categories?ouId=${ouId}`)
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/landingPageListings?ouId=${ouId}`)
         return (await d.json()).listings as PageListing[]
     }
 }

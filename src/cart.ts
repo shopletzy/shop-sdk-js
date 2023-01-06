@@ -1,5 +1,5 @@
 import { ShopletzyClient } from "./index";
-import { Cart, CartUpdateReq, Category, Product } from "./types/index";
+import { Cart, CartUpdateReq, Category, CheckoutCart, Product } from "./types/index";
 
 export class CartResource {
     client: ShopletzyClient;
@@ -32,5 +32,21 @@ export class CartResource {
             body: JSON.stringify(cartUpdateReq)
         })
         return (await d.json()).cart as Cart
+    }
+
+    async getDeliverySlots(addressId: string, ouId: string, tz: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/deliverySlots?addressId=${addressId}&ouId=${ouId}&tz=${tz}`)
+        return await d.json()
+    }
+
+    async checkout(cartId: string, checkoutCart: CheckoutCart) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/carts/${cartId}/checkout`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(checkoutCart)
+        })
+        return await d.json()
     }
 }

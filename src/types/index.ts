@@ -279,3 +279,19 @@ export type Wishlist = {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type CheckoutCart = {
+    tz: string;
+    addressId: string;
+    deliverySlot: {
+        _id: string;
+        slotType: string;
+        name?: string;
+        orderStart?: string;
+        orderEnd?: string;
+        date?: string;
+        startTime?: string;
+        endTime?: string;
+        deliveryBefore?: string;
+    }
+}
