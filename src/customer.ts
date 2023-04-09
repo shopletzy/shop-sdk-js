@@ -7,6 +7,16 @@ export class CustomerResource {
         this.client = client
     }
 
+    async getProfile() {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/profile`)
+        const profile = await d.json() as {
+            email: string;
+            fullName: string;
+            _id: string;
+        }
+        return profile
+    }
+
     async login(loginReq: LoginRequest) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/oauth`, {
             method: 'POST',
@@ -19,7 +29,6 @@ export class CustomerResource {
         this.client.authToken = loginResponse.token
         return loginResponse
     }
-
 
     async sendMobileOTP(mobileNo: string, countryCode?: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/sendOTP`, {

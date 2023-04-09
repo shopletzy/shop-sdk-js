@@ -1,6 +1,7 @@
 export type ClientConfig = {
     authToken?: string;
     env: string;
+    apiUrl?: string;
     domain: string;
     storeName?: string;
     sessionId?: string;
@@ -210,6 +211,19 @@ export type CartUpdateReq = {
     quantity: number;
 }
 
+export type MakePaymentReq = {
+    paymentMode: "cod" | "online";
+}
+
+export type PaymentSuccessReq = {
+    gateway: "razorpay";
+    razorpay: {
+        paymentId: string;
+        orderId: string;
+        signature: string;
+    }
+}
+
 export type CartItem = {
     _id: string;
     title: string;
@@ -294,4 +308,143 @@ export type CheckoutCart = {
         endTime?: string;
         deliveryBefore?: string;
     }
+}
+
+export type DeliverySlotType = "fixed" | "flexible";
+
+export type DeliverySlot = {
+    _id: string;
+    name: string;
+    slotType: DeliverySlotType;
+    orderStart: string;
+    orderEnd: string;
+    startTime: string;
+    endTime: string;
+    deliveryBefore: string;
+    deliveryArea?: DeliveryArea;
+    orderLimit: number;
+    isActive: boolean;
+}
+
+export type Customer = {
+    _id: string;
+    fullName: string;
+    email: string;
+    mobileNo?: string;
+    addresses?: CustomerAddress[];
+    createdAt: Date;
+}
+
+export type OrderItem = {
+    _id: string;
+    title: string;
+    subtitle?: string;
+    sku: string;
+    price: number;
+    salePrice?: number;
+    quantity: number;
+    ouId: string;
+}
+
+export type OrderDeliverySlot = Omit<DeliverySlot, "sid | isActive | orderLimit | deliveryArea"> & { date: Date }
+
+export type Order = {
+    _id: string;
+    cusId: string;
+    orderNo: string;
+    customer: Customer;
+    status: OrderStatus;
+    items: OrderItem[];
+    deliverySlot?: OrderDeliverySlot;
+    shippingAddress: CustomerAddress;
+    shippingDetails?: ShippingDetails;
+    billing: CustomerBilling;
+    payment?: PaymentDetails;
+    ouId: string;
+    sid: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type DeliveryExec = {
+    _id: string;
+    fullName: string;
+    mobileNo: string;
+}
+
+
+export type DeliveryServiceType = "inhouse" | "external";
+
+export type ShippingDetails = {
+    deliveryService: DeliveryServiceType;
+    deliveryServiceName?: string;
+    trackingNo?: string;
+    deliveryExec?: DeliveryExec;
+}
+
+export type CustomerBilling = {
+    itemSubtotal: number;
+    tax?: number;
+    additionalCharges?: AdditionalCharge[];
+    additionalChargesSubtotal?: number;
+    discountCode?: string;
+    discount?: number;
+    totalBeforeTax?: number;
+    toPay: number;
+    currency: Currency;
+}
+
+export type Currency = "INR";
+
+export type PaymentDetails = {
+    mode: PaymentMode;
+    refundedAmount?: number;
+    gateway: PaymentGateway;
+    razorpay: RazorpayResponse;
+}
+
+export type RazorpayResponse = {
+    paymentId: string;
+    orderId: string;
+    signature: string;
+}
+
+export type ChargeType = "delivery" | "convenience" | "installation" | "packaging" | "custom"
+
+type ChargeAppliesTo = "deliverySlot" | "outlet" | "store"
+
+export type Charge = {
+    _id: string;
+    chargeType: ChargeType;
+    label: string;
+    appliesTo: ChargeAppliesTo;
+    deliverySlotIds: string[];
+    outletIds: string[];
+    fee: ChargeFee;
+    tax: number;
+    sid: string;
+    isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+type ChargeFee = {
+    type: "flat" | "bucket";
+    flatFee: number;
+    buckets: BucketFee[];
+}
+
+type BucketFee = {
+    from: number;
+    to: number;
+    fee: number;
+}
+
+export type AdditionalCharge = {
+    _id: string;
+    type: ChargeType;
+    appliesTo: ChargeAppliesTo;
+    label: string;
+    fee: number;
+    tax?: number;
 }

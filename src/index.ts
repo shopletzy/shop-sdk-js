@@ -3,6 +3,7 @@ import { CartResource } from "./cart";
 import { ProductResource } from "./produtct";
 import { StoreResource } from "./store"
 import { ClientConfig, SiteConfiguration } from "./types/index"
+import { OrderResource } from "./order";
 
 export class ShopletzyClient {
 
@@ -13,6 +14,7 @@ export class ShopletzyClient {
     config: ClientConfig
     store: StoreResource
     cart: CartResource
+    order: OrderResource
     product: ProductResource
     customer: CustomerResource
 
@@ -26,14 +28,19 @@ export class ShopletzyClient {
         this.cart = new CartResource(this)
         this.product = new ProductResource(this)
         this.customer = new CustomerResource(this)
+        this.order = new OrderResource(this)
     }
 
     fetch(url: string, init?: RequestInit): Promise<Response> {
         if (!url.startsWith("http")) {
-            if (this.config.env == "testing") {
-                url = 'https://shop-api.testing.shopletzy.com' + url
+            if (this.config.apiUrl) {
+                url = this.config.apiUrl + url
             } else {
-                url = 'https://shop-api.shopletzy.com' + url
+                if (this.config.env == "testing") {
+                    url = 'https://shop-api.testing.shopletzy.com' + url
+                } else {
+                    url = 'https://shop-api.shopletzy.com' + url
+                }
             }
         }
 
