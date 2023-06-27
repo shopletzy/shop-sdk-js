@@ -20,6 +20,7 @@ export class ShopletzyClient {
 
     constructor(config: ClientConfig) {
         this.config = config
+
         this.storeName = config.storeName
         this.authToken = config.authToken
         this.sessionId = config.sessionId
@@ -54,6 +55,10 @@ export class ShopletzyClient {
 
         if (this.authToken) {
             init.headers = { ...init.headers, "authorization": "Bearer " + this.authToken }
+        }
+
+        if (this.config.headers) {
+            init.headers = { ...init.headers, ...this.config.headers }
         }
 
         return fetch!(url, init)
