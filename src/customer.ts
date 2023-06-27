@@ -12,7 +12,7 @@ export class CustomerResource {
         const profile = await d.json() as {
             email: string;
             fullName: string;
-            _id: string;
+            id: string;
         }
         return profile
     }

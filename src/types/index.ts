@@ -5,6 +5,7 @@ export type ClientConfig = {
     domain: string;
     storeName?: string;
     sessionId?: string;
+    headers?: HeadersInit;
 }
 
 export type SiteConfiguration = {
@@ -18,6 +19,7 @@ export type SiteConfiguration = {
     siteStatus: SiteStatus;
     webPushKey: string;
     theme: string;
+    defaultOuId: string;
 }
 
 export type SiteStatusCode = "live" | "maintenance";
@@ -119,7 +121,7 @@ export type ContactNumber = {
 }
 
 export type Address = {
-    _id: string;
+    id: string;
     addressLine1: string;
     addressLine2?: string;
     landmark?: string;
@@ -136,7 +138,7 @@ export type DeliverySlotConfig = {
 }
 
 export type Outlet = {
-    _id: string;
+    id: string;
     name: string;
     address: Address;
     placeDetails: PlaceDetails,
@@ -159,7 +161,7 @@ export type DeliveryArea = {
 }
 
 export type Category = {
-    _id: string;
+    id: string;
     title: string;
     parent: string;
     category: string;
@@ -177,7 +179,7 @@ export type Tax = {
 }
 
 export type Product = {
-    _id: string;
+    id: string;
     title: string;
     subtitle?: string;
     description?: string;
@@ -225,7 +227,7 @@ export type PaymentSuccessReq = {
 }
 
 export type CartItem = {
-    _id: string;
+    id: string;
     title: string;
     subtitle?: string;
     sku: string;
@@ -236,7 +238,7 @@ export type CartItem = {
 }
 
 export type Cart = {
-    _id: string;
+    id: string;
     items: CartItem[];
     cusId?: string;
     sessionId?: string;
@@ -247,7 +249,7 @@ export type Cart = {
 export type OrderStatus = "pending" | "awaitingPayment" | "awaitingConfirmation" | "awaitingFulfilment" | "shipped" | "completed" | "refunded" | "partiallyRefunded" | "cancelled" | "declined" | "returned";
 
 export type CustomerAddress = {
-    _id: string;
+    id: string;
     fullName: string;
     houseName: string;
     phoneNo: string;
@@ -279,13 +281,13 @@ export type LoginResponse = {
     cusId: string;
     isNewCustomer: boolean;
     cart: {
-        _id: string;
+        id: string;
         cartMigrated: boolean
     }
 }
 
 export type Wishlist = {
-    _id: string;
+    id: string;
     name: string;
     productIds: string[];
     cusId: string;
@@ -298,7 +300,7 @@ export type CheckoutCart = {
     tz: string;
     addressId: string;
     deliverySlot: {
-        _id: string;
+        id: string;
         slotType: string;
         name?: string;
         orderStart?: string;
@@ -313,7 +315,7 @@ export type CheckoutCart = {
 export type DeliverySlotType = "fixed" | "flexible";
 
 export type DeliverySlot = {
-    _id: string;
+    id: string;
     name: string;
     slotType: DeliverySlotType;
     orderStart: string;
@@ -327,7 +329,7 @@ export type DeliverySlot = {
 }
 
 export type Customer = {
-    _id: string;
+    id: string;
     fullName: string;
     email: string;
     mobileNo?: string;
@@ -336,7 +338,7 @@ export type Customer = {
 }
 
 export type OrderItem = {
-    _id: string;
+    id: string;
     title: string;
     subtitle?: string;
     sku: string;
@@ -349,7 +351,7 @@ export type OrderItem = {
 export type OrderDeliverySlot = Omit<DeliverySlot, "sid | isActive | orderLimit | deliveryArea"> & { date: Date }
 
 export type Order = {
-    _id: string;
+    id: string;
     cusId: string;
     orderNo: string;
     customer: Customer;
@@ -367,7 +369,7 @@ export type Order = {
 }
 
 export type DeliveryExec = {
-    _id: string;
+    id: string;
     fullName: string;
     mobileNo: string;
 }
@@ -414,7 +416,7 @@ export type ChargeType = "delivery" | "convenience" | "installation" | "packagin
 type ChargeAppliesTo = "deliverySlot" | "outlet" | "store"
 
 export type Charge = {
-    _id: string;
+    id: string;
     chargeType: ChargeType;
     label: string;
     appliesTo: ChargeAppliesTo;
@@ -441,7 +443,7 @@ type BucketFee = {
 }
 
 export type AdditionalCharge = {
-    _id: string;
+    id: string;
     type: ChargeType;
     appliesTo: ChargeAppliesTo;
     label: string;
