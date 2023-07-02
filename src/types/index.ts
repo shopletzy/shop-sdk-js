@@ -450,3 +450,11 @@ export type AdditionalCharge = {
     fee: number;
     tax?: number;
 }
+
+export type PageRedirect = {
+    id: string;
+    source: string;
+    destination: string;
+    permanent: boolean;
+    sid: string;
+}

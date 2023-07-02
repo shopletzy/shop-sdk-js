@@ -1,5 +1,5 @@
 import { ShopletzyClient } from "./index";
-import { Cart, LocationSuggestion, Outlet, PageListing, PlaceDetails, SiteConfiguration } from "./types/index";
+import { Cart, LocationSuggestion, Outlet, PageListing, PageRedirect, PlaceDetails, SiteConfiguration } from "./types/index";
 
 export class StoreResource {
     client: ShopletzyClient;
@@ -52,5 +52,10 @@ export class StoreResource {
     async getLandingPageListings(ouId: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/landingPageListings?ouId=${ouId}`)
         return (await d.json()).listings as PageListing[]
+    }
+
+    async getPageRedirects() {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/pageRedirects`)
+        return (await d.json()).pageRedirects as PageRedirect[]
     }
 }
