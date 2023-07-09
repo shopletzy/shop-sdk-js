@@ -1,5 +1,5 @@
 import { ShopletzyClient } from "./index";
-import { Cart, LocationSuggestion, Outlet, PageListing, PageRedirect, PlaceDetails, SiteConfiguration } from "./types/index";
+import { Blog, Cart, LocationSuggestion, Outlet, PageListing, PageRedirect, PlaceDetails, Post, SiteConfiguration } from "./types/index";
 
 export class StoreResource {
     client: ShopletzyClient;
@@ -57,5 +57,23 @@ export class StoreResource {
     async getPageRedirects() {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/pageRedirects`)
         return (await d.json()).pageRedirects as PageRedirect[]
+    }
+
+    async getBlogs() {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/blogs`)
+        return (await d.json()).blogs as Blog[]
+    }
+
+    async getBlogById() {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/blogs/:blogId`)
+        return await d.json() as Blog
+    }
+
+    async getPostBySlug(slug: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/post-by-slug?slug=${slug}`)
+        if (d.status != 200) {
+            throw new Error((await d.json()).message);
+        }
+        return await d.json() as Post
     }
 }

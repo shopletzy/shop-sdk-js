@@ -263,11 +263,12 @@ export type CustomerAddress = {
     placeDetails: PlaceDetails;
 }
 
-export type AuthProvider = "google" | "facebook";
+export type AuthProvider = "google" | "facebook" | "shopletzy";
 
 export type LoginRequest = {
     authProvider: AuthProvider;
     token: string;
+    otp?: string;
     cartId?: string; // For Cart Migration
     sessionId?: string;
 }
@@ -457,4 +458,30 @@ export type PageRedirect = {
     destination: string;
     permanent: boolean;
     sid: string;
+}
+
+export type Blog = {
+    id: string;
+    title: string;
+    sid: string;
+    createdAt: Date;
+}
+
+export type Post = {
+    id: string;
+    title: string;
+    slug: string;
+    excerpt: string;
+    lexical: string;
+    status: "draft" | "published";
+    feature_image: string;
+    featured: boolean;
+    metaTitle: string;
+    metaDescription: string;
+    metaKeywords: string;
+    tags: string[];
+    authors: { id: string, fullName: string }[];
+    type: "post" | "page";
+    blogTitle: string;
+    blogId?: string;
 }

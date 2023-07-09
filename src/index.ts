@@ -32,7 +32,7 @@ export class ShopletzyClient {
         this.order = new OrderResource(this)
     }
 
-    fetch(url: string, init?: RequestInit): Promise<Response> {
+    async fetch(url: string, init?: RequestInit): Promise<Response> {
         if (!url.startsWith("http")) {
             if (this.config.apiUrl) {
                 url = this.config.apiUrl + url
@@ -61,7 +61,11 @@ export class ShopletzyClient {
             init.headers = { ...init.headers, ...this.config.headers }
         }
 
-        return fetch!(url, init)
+        const d = await fetch!(url, init)
+        if (d.status != 200) {
+            throw await SlzError.fromResponse(d)
+        }
+        return d
     }
 }
 
@@ -74,4 +78,19 @@ export async function initializeSlzClient(config: ClientConfig): Promise<Shoplet
         client.sessionId = await client.store.newSession()
     }
     return client
+}
+
+export class SlzError extends Error {
+    code: string;
+    constructor(code: string, message: string) {
+        super(message);
+        this.name = 'SlzError';
+        this.code = code;
+        Object.setPrototypeOf(this, SlzError.prototype);
+    }
+
+    static async fromResponse(d: Response) {
+        const resp = await d.json()
+        return new SlzError(resp.code, resp.message)
+    }
 }

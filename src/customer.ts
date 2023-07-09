@@ -1,5 +1,5 @@
-import { ShopletzyClient } from "./index";
-import { Category, CustomerAddress as Address, LoginRequest, LoginResponse, Product, Wishlist } from "./types/index";
+import { ShopletzyClient, SlzError } from "./index";
+import { Category, CustomerAddress, LoginRequest, LoginResponse, Product, Wishlist } from "./types/index";
 
 export class CustomerResource {
     client: ShopletzyClient;
@@ -28,6 +28,39 @@ export class CustomerResource {
         const loginResponse = await d.json() as LoginResponse
         this.client.authToken = loginResponse.token
         return loginResponse
+    }
+
+    async signup(email: string, fullName: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                fullName
+            })
+        })
+        return (await d.json()).token as string
+    }
+
+    async sendLoginOTP(loginId: string, type: "email" | "mobileNo") {
+        const payload: any = {};
+
+        if (type == "email") {
+            payload.email = loginId
+        } else {
+            payload.mobileNo = loginId
+        }
+
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/otpLogin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        })
+        return (await d.json()).token as string
     }
 
     async sendMobileOTP(mobileNo: string, countryCode?: string) {
@@ -91,6 +124,38 @@ export class CustomerResource {
 
     async getAddresses() {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/addresses`)
-        return (await d.json()).addresses as Address[]
+        return (await d.json()).addresses as CustomerAddress[]
+    }
+
+    async addAddress(address: CustomerAddress) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/addresses`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(address)
+        })
+        return (await d.json()).addressId as string
+    }
+
+    async updateAddress(addressId: string, address: CustomerAddress) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/addresses/${addressId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(address)
+        })
+        return (await d.json()).newAddressId as string
+    }
+
+    async deleteAddress(addressId: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/addresses/${addressId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return (await d.json()).isDeleted as boolean
     }
 }
