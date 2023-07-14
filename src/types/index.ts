@@ -482,6 +482,9 @@ export type Post = {
     tags: string[];
     authors: { id: string, fullName: string }[];
     type: "post" | "page";
+    codeInjectionHead: string;
+    codeInjectionFoot: string;
+    customTemplate: string;
     blogTitle: string;
     blogId?: string;
 }
