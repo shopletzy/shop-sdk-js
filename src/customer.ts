@@ -1,5 +1,5 @@
 import { ShopletzyClient, SlzError } from "./index";
-import { Category, CustomerAddress, LoginRequest, LoginResponse, Product, Wishlist } from "./types/index";
+import { Category, Customer, CustomerAddress, LoginRequest, LoginResponse, Product, Wishlist } from "./types/index";
 
 export class CustomerResource {
     client: ShopletzyClient;
@@ -9,12 +9,7 @@ export class CustomerResource {
 
     async getProfile() {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/profile`)
-        const profile = await d.json() as {
-            email: string;
-            fullName: string;
-            id: string;
-        }
-        return profile
+        return await d.json() as Customer
     }
 
     async login(loginReq: LoginRequest) {
