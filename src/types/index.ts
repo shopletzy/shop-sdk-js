@@ -226,6 +226,15 @@ export type PaymentSuccessReq = {
     }
 }
 
+export type PaymentFailureReq = {
+    gateway: string;
+    razorpay: {
+        paymentId: string;
+        orderId: string;
+        error: any;
+    };
+}
+
 export type CartItem = {
     id: string;
     title: string;

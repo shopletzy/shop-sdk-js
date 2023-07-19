@@ -1,5 +1,5 @@
 import { ShopletzyClient } from "./index";
-import { Cart, CartUpdateReq, Category, CheckoutCart, MakePaymentReq, Order, PaymentSuccessReq, Product } from "./types/index";
+import { Cart, CartUpdateReq, Category, CheckoutCart, MakePaymentReq, Order, PaymentFailureReq, PaymentSuccessReq, Product } from "./types/index";
 
 export class OrderResource {
     client: ShopletzyClient;
@@ -49,12 +49,13 @@ export class OrderResource {
         }
     }
 
-    async paymentFailure(orderId: string) {
+    async paymentFailure(orderId: string, paymentFailureReq: PaymentFailureReq) {
         const r = await this.client.fetch(`/${this.client.storeName}/v1/orders/${orderId}/paymentFailure`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify(paymentFailureReq)
         })
         return await r.json() as {
             status: string;
