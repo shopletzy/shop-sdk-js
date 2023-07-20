@@ -185,10 +185,14 @@ export type Product = {
     description?: string;
     categories: string[];
     sku: string;
+    slug: string;
+    seoTitle: string;
+    seoDescription: string;
     images?: string[];
     maxItemsPerOrder: number;
     outlets: OutletProduct[];
     labels: string[];
+    addOnGroups?: AddOnGroup[];
 }
 
 export type OutletProduct = {
@@ -496,4 +500,23 @@ export type Post = {
     customTemplate: string;
     blogTitle: string;
     blogId?: string;
+}
+
+export type AddOnGroup = {
+    id: string;
+    title: string;
+    subtitle: string;
+    mandatory: boolean;
+    minSelection: number;
+    maxSelection: number;
+    addOns: AddOn[];
+    productId: string;
+}
+
+export type AddOn = {
+    id: string;
+    title: string;
+    price: number;
+    taxRate: number;
+    addOnGroupId: string;
 }
