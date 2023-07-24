@@ -476,6 +476,14 @@ export type PageRedirect = {
 export type Blog = {
     id: string;
     title: string;
+    slug: string;
+    metaTitle: string;
+    metaDescription: string;
+    metaKeywords: string;
+    blogTemplate: string;
+    postTemplate: string;
+    featuredPosts?: Post[];
+    recentPosts?: Post[];
     sid: string;
     createdAt: Date;
 }
@@ -519,4 +527,23 @@ export type AddOn = {
     price: number;
     taxRate: number;
     addOnGroupId: string;
+}
+
+export type FAQQuestion = {
+    id: string;
+    question: string;
+    answer: string;
+    isPublished: boolean;
+    sid: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type FAQ = {
+    id: string;
+    name: string;
+    questions?: FAQQuestion[];
+    isPublished: boolean;
+    sid: string;
+    createdAt: Date;
 }

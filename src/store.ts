@@ -64,8 +64,8 @@ export class StoreResource {
         return (await d.json()).blogs as Blog[]
     }
 
-    async getBlogById() {
-        const d = await this.client.fetch(`/${this.client.storeName}/v1/blogs/:blogId`)
+    async getBlogBySlug(slug: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/blog-by-slug?slug=${slug}`)
         return await d.json() as Blog
     }
 
