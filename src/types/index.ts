@@ -241,6 +241,7 @@ export type PaymentFailureReq = {
 
 export type CartItem = {
     id: string;
+    productId: string;
     title: string;
     subtitle?: string;
     sku: string;
