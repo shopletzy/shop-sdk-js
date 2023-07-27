@@ -213,6 +213,7 @@ export type PageListing = {
 
 export type CartUpdateReq = {
     ouId: string;
+    addons: string[];
     productId: string;
     quantity: number;
 }
