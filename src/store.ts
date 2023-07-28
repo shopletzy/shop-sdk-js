@@ -49,6 +49,11 @@ export class StoreResource {
         return (await d.json()).outlets as Outlet[]
     }
 
+    async getOutletById(ouId: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/outlets/${ouId}`)
+        return (await d.json()) as Outlet
+    }
+
     async getLandingPageListings(ouId: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/landingPageListings?ouId=${ouId}`)
         return (await d.json()).listings as PageListing[]

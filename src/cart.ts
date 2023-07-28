@@ -34,8 +34,12 @@ export class CartResource {
         return (await d.json()).cart as Cart
     }
 
-    async getDeliverySlots(addressId: string, ouId: string, tz: string) {
-        const d = await this.client.fetch(`/${this.client.storeName}/v1/deliverySlots?addressId=${addressId}&ouId=${ouId}&tz=${tz}`)
+    async getDeliverySlots(addressId: string, ouletPickup: boolean, ouId: string, tz: string) {
+        let queryParams = `pickup=${ouletPickup}&ouId=${ouId}&tz=${tz}`;
+        if (addressId) {
+            queryParams += `&addressId=${addressId}`
+        }
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/deliverySlots?${queryParams}`)
         return await d.json()
     }
 

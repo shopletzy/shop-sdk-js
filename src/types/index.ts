@@ -314,7 +314,8 @@ export type Wishlist = {
 
 export type CheckoutCart = {
     tz: string;
-    addressId: string;
+    addressId?: string;
+    pickup?: boolean;
     deliverySlot: {
         id: string;
         slotType: string;
