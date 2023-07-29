@@ -498,7 +498,7 @@ export type Post = {
     excerpt: string;
     lexical: string;
     status: "draft" | "published";
-    feature_image: string;
+    featureImage: string;
     featured: boolean;
     metaTitle: string;
     metaDescription: string;
