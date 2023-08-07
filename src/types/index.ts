@@ -192,7 +192,7 @@ export type Product = {
     maxItemsPerOrder: number;
     outlets: OutletProduct[];
     labels: string[];
-    addOnGroups?: AddOnGroup[];
+    addonGroups?: AddonGroup[];
 }
 
 export type OutletProduct = {
@@ -513,23 +513,22 @@ export type Post = {
     blogId?: string;
 }
 
-export type AddOnGroup = {
+export type AddonGroup = {
     id: string;
     title: string;
-    subtitle: string;
     mandatory: boolean;
     minSelection: number;
     maxSelection: number;
-    addOns: AddOn[];
+    addons: Addon[];
     productId: string;
 }
 
-export type AddOn = {
+export type Addon = {
     id: string;
     title: string;
     price: number;
     taxRate: number;
-    addOnGroupId: string;
+    addonGroupId: string;
 }
 
 export type FAQQuestion = {
