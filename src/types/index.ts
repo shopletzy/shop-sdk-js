@@ -473,6 +473,7 @@ export type PageRedirect = {
     source: string;
     destination: string;
     permanent: boolean;
+    useRegex: boolean;
     sid: string;
 }
 
