@@ -1,5 +1,5 @@
 import { ShopletzyClient } from "./index";
-import { Cart, CartUpdateReq, Category, CheckoutCart, MakePaymentReq, Order, PaymentFailureReq, PaymentSuccessReq, Product } from "./types/index";
+import { Cart, CartUpdateReq, Category, CheckoutCart, MakePaymentReq, Order, PaymentFailureReq, PaymentSuccessReq, Product, Promotion } from "./types/index";
 
 export class OrderResource {
     client: ShopletzyClient;
@@ -15,6 +15,34 @@ export class OrderResource {
     async getOrderById(orderId: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/orders/${orderId}`)
         return (await d.json()) as Order
+    }
+
+    async getPromotions(orderId: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/orders/${orderId}/promotions`)
+        return (await d.json()).promotions as Promotion[]
+    }
+
+    async applyPromotion(orderId: string, promoCode: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/orders/${orderId}/applyPromotion`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                promoCode
+            })
+        })
+        return await d.json()
+    }
+
+    async removePromotion(orderId: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/orders/${orderId}/removePromotion`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return await d.json()
     }
 
     async makePayment(orderId: string, makePaymentReq: MakePaymentReq) {

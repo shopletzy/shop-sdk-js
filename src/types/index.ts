@@ -550,3 +550,26 @@ export type FAQ = {
     sid: string;
     createdAt: Date;
 }
+
+export type PromotionType = "amount" | "percentage";
+
+export type Discount = {
+    amount: number;
+    percentage: number;
+    maxDiscountAmount: number; // Not applicable for amount type
+}
+
+export type Promotion = {
+    id: string;
+    title: string;
+    description: string;
+    promotionType: PromotionType
+    code: string;
+    discount: Discount;
+    minOrderValue: number;
+    available: number;
+    claimed: number;
+    validFrom: Date;
+    validUpto: Date;
+    eligible: boolean;
+}
