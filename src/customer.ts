@@ -153,4 +153,32 @@ export class CustomerResource {
         })
         return (await d.json()).isDeleted as boolean
     }
+
+    async registerDeviceToken(token: string, deviceType: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/registerDeviceToken`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token,
+                deviceType
+            })
+        })
+        return (await d.json()).devTokenId as string
+    }
+
+    async unregisterDeviceToken(token: string, deviceType: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/unregisterDeviceToken`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token,
+                deviceType
+            })
+        })
+        return (await d.json()).isDeleted as boolean
+    }
 }
