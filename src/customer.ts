@@ -156,7 +156,7 @@ export class CustomerResource {
 
     async registerDeviceToken(token: string, deviceType: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/registerDeviceToken`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -170,7 +170,7 @@ export class CustomerResource {
 
     async unregisterDeviceToken(token: string, deviceType: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/unregisterDeviceToken`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
