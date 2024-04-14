@@ -316,6 +316,7 @@ export type CheckoutCart = {
     tz: string;
     addressId?: string;
     pickup?: boolean;
+    deviceType?: string;
     deliverySlot: {
         id: string;
         slotType: string;
