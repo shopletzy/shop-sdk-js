@@ -27,6 +27,11 @@ export class ProductResource {
         return (await d.json()) as Product
     }
 
+    async getProductCollection(slug: string, ouId: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/productCollection?ouId=${ouId}&slug=${slug}`)
+        return (await d.json()).products as Product[]
+    }
+
     async search(q: string, ouId: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/searchProducts?ouId=${ouId}&q=${q}`)
         return (await d.json()).products as Product[]

@@ -81,4 +81,9 @@ export class StoreResource {
         }
         return await d.json() as Post
     }
+
+    async getMenuItems(menuId: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/navigation/menus/${menuId}`)
+        return await d.json()
+    }
 }
