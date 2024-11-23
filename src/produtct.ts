@@ -1,5 +1,5 @@
 import { ShopletzyClient } from "./index";
-import { Category, Product } from "./types/index";
+import { Category, Product, ProductCollection } from "./types/index";
 
 export class ProductResource {
     client: ShopletzyClient;
@@ -10,6 +10,11 @@ export class ProductResource {
     async getCategories(ouId: string) {
         const d = await this.client.fetch(`/${this.client.storeName}/v1/categories?ouId=${ouId}`)
         return (await d.json()).categories as Category[]
+    }
+
+    async getCollectionBySlug(slug: string) {
+        const d = await this.client.fetch(`/${this.client.storeName}/v1/collection-by-slug?slug=${slug}`)
+        return await d.json() as ProductCollection
     }
 
     async getProducts(category: string, ouId: string) {

@@ -180,15 +180,15 @@ export type Tax = {
 
 export type Product = {
     id: string;
+    variantId: string;
     title: string;
     subtitle?: string;
     description?: string;
-    categories: string[];
     sku: string;
     slug: string;
     seoTitle: string;
     seoDescription: string;
-    images?: string[];
+    media?: string[];
     maxItemsPerOrder: number;
     outlets: OutletProduct[];
     labels: string[];
@@ -206,6 +206,17 @@ export type OutletProduct = {
     isAvailable: boolean;
 }
 
+export type ProductCollection = {
+    id: string;
+    title: string;
+    description: string;
+    slug: string;
+    icon: string;
+    image: string;
+    seoTitle: string;
+    seoDescription: string;
+}
+
 export type PageListing = {
     title: string
     products: Product[]
@@ -214,7 +225,7 @@ export type PageListing = {
 export type CartUpdateReq = {
     ouId: string;
     addons: string[];
-    productId: string;
+    variantId: string;
     quantity: number;
 }
 
@@ -242,7 +253,7 @@ export type PaymentFailureReq = {
 
 export type CartItem = {
     id: string;
-    productId: string;
+    variantId: string;
     title: string;
     subtitle?: string;
     sku: string;
