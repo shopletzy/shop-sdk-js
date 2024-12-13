@@ -27,8 +27,12 @@ export class ProductResource {
         return (await d.json()) as Product
     }
 
-    async getProductBySlug(slug: string, ouId: string) {
-        const d = await this.client.fetch(`/${this.client.storeName}/v1/product-by-slug?ouId=${ouId}&slug=${slug}`)
+    async getProductBySlug(slug: string, ouId: string, variantId?: string) {
+        let url = `/${this.client.storeName}/v1/product-by-slug?ouId=${ouId}&slug=${slug}`;
+        if (variantId) {
+            url += `&variantId=${variantId}`
+        }
+        const d = await this.client.fetch(url)
         return (await d.json()) as Product
     }
 
