@@ -83,7 +83,7 @@ export async function initializeSlzClient(config: ClientConfig): Promise<Shoplet
 export class SlzError extends Error {
     code: string;
     constructor(code: string, message: string) {
-        super(message);
+        super(`${code}: ${message}`);
         this.name = 'SlzError';
         this.code = code;
         Object.setPrototypeOf(this, SlzError.prototype);

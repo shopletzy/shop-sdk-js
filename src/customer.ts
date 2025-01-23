@@ -1,4 +1,4 @@
-import { ShopletzyClient, SlzError } from "./index";
+import { ShopletzyClient } from "./index";
 import { Category, Customer, CustomerAddress, LoginRequest, LoginResponse, Product, Wishlist } from "./types/index";
 
 export class CustomerResource {
